@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Base reset ────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: system-ui, sans-serif;
+}
+
+/* ── Dark theme (default) ───────────────────────────────────────────────────── */
+:root {
+  --surface-alt: #0f0f13;
+  --card: #17171e;
+  --border: rgba(255,255,255,0.08);
+  --primary: #7c6af7;
+  --accent: #f7a74a;
+  --foreground: #e8e8f0;
+  --secondary-foreground: #b0b0c4;
+  --muted-foreground: #6b6b82;
+  --terminal-bg: #0a0a0e;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --surface-alt: #f4f3f0;
+    --card: #ffffff;
+    --border: rgba(0,0,0,0.09);
+    --primary: #5b4fd4;
+    --accent: #d4720f;
+    --foreground: #16161e;
+    --secondary-foreground: #4a4a6a;
+    --muted-foreground: #7878a0;
+    --terminal-bg: #1a1a24;
+
+    color-scheme: light;
+  }
+}
+
+/* ── Tailwind CSS variable bridge ────────────────────────────────────────────
+   Work.tsx uses e.g. className="text-muted-foreground bg-card border-border".
+   We map those to CSS variables here so Tailwind v4 can pick them up.         */
+@layer base {
+  :root {
+    --color-foreground: var(--foreground);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-primary: var(--primary);
+    --color-accent: var(--accent);
+    --color-card: var(--card);
+    --color-border: var(--border);
+    --color-surface-alt: var(--surface-alt);
+  }
+}
+
+@layer utilities {
+  .text-foreground          { color: var(--foreground); }
+  .text-secondary-foreground{ color: var(--secondary-foreground); }
+  .text-muted-foreground    { color: var(--muted-foreground); }
+  .text-primary             { color: var(--primary); }
+  .text-accent              { color: var(--accent); }
+
+  .bg-card                  { background-color: var(--card); }
+  .bg-surface-alt           { background-color: var(--surface-alt); }
+
+  .border-border            { border-color: var(--border); }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  }
+}
